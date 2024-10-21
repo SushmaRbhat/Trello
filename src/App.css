@@ -1,0 +1,147 @@
+#root {
+  width: 100%;
+  margin: 0 auto;
+}
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+h1 {
+  text-align: center;
+}
+h3 {
+  text-align: left;
+  font-size: 14px;
+}
+.header {
+  padding: 1rem;
+  box-shadow: 0 1px 20px rgba(56, 40, 40, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+}
+
+.task-main-container {
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem;
+  padding: 10px 20px;
+  height: 100%;
+}
+.task-section-board {
+  background: #fff;
+  border-radius: 4px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.section-header {
+  padding: 10px;
+  text-align: left;
+  color: #fff;
+  border-radius: 4px 4px 0 0;
+}
+
+.todo {
+  background-color: #ff9194;
+}
+
+.inprogress {
+  background-color: #73c2fb;
+}
+.completed {
+  background-color: #4dc247;
+}
+.add-button {
+  width: 100%;
+  background-color: #fff;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+}
+
+.input-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 100%;
+}
+.input-form input {
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+}
+
+.buttons-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.buttons-container .submit-button {
+  cursor: pointer;
+  border-radius: 5px;
+  outline: none;
+  background-color: #0c66e4;
+  color: #fff;
+  border: none;
+  transition: 100ms ease;
+  padding: 5px 10px;
+}
+.buttons-container .submit-button:hover {
+  background-color: #0055cc;
+}
+
+.buttons-container .submit-button:active {
+  transform: translateY(2px);
+}
+.buttons-container .close-button {
+  border-radius: 5px;
+  outline: none;
+  color: #172b4d;
+  border: none;
+  background-color: transparent;
+  padding: 5px 10px;
+}
+.buttons-container .close-button:hover {
+  background-color: #091e4224;
+}
+
+.card-container {
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+  gap: 10px;
+  overflow-y: auto;
+}
+.card {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #424242;
+  padding: 16px;
+  border-radius: 6px;
+}
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.action-container {
+  display: inline-flex;
+}
+.action-container button {
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: transparent;
+}
+.action-container button:hover {
+  background-color: rgb(240, 240, 240);
+}
