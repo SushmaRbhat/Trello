@@ -4,7 +4,6 @@ import { taskData } from "./data";
 import TaskSectionBoard from "./components/TaskSectionBoard";
 import TaskCard from "./components/TaskCard";
 import TaskForm from "./components/TaskForm";
-import AutoComplete from "./AutoComplete";
 import AddCard from "./components/AddCard";
 
 function App() {
@@ -13,16 +12,22 @@ function App() {
   );
   const [editTaskObj, setEditTaskObj] = useState(null);
   const [draggableTask, setDraggableTask] = useState(null);
-  const [openForm, setOpenForm] = useState(false);
+  const [categoryId, setCategoryId] = useState(null);
   const [openEditForm, setEditOpenForm] = useState(false);
+
   useEffect(() => {
     localStorage.setItem("kanban-data", JSON.stringify(taskList));
   }, [taskList]);
 
-  const toggleForm = (state) => {
-    console.log("kk", state);
-    setOpenForm(state);
+  const toggleForm = (category) => {
+    setCategoryId(category);
+    setEditOpenForm(false);
   };
+
+  const handleClose = () => {
+    setCategoryId(null);
+  };
+
   const handleAddTask = (name, category) => {
     const newList = [...taskList];
     const index = newList.findIndex((ele) => ele.category === category);
@@ -34,47 +39,7 @@ function App() {
     setTaskList(newList);
   };
 
-  const handleUpdateTaslk = (name, category) => {
-    console.log("dd", category, name);
-    const newList = [...taskList];
-    ///finf category
-    const oldCategory = newList.find((x) =>
-      x.tasks.find((y) => y.id === editTaskObj.id)
-    );
-    console.log("hh", oldCategory);
-    const taskToUpdate = oldCategory.tasks.find((x) => x.id === editTaskObj.id);
-    //if the category changing remove the task from original category
-    console.log("checl", oldCategory && oldCategory.category !== category);
-    if (oldCategory && oldCategory.category !== category) {
-      console.log("if", oldCategory && oldCategory.category !== category);
-      oldCategory.tasks = oldCategory.tasks.filter(
-        (x) => x.id !== editTaskObj.id
-      );
-
-      const targetCategory = newList.find(
-        (categoryItem) => categoryItem.category === category
-      );
-      console.log("hhh", targetCategory);
-      // If the task is being moved to a new category, add the task to that category
-      if (targetCategory) {
-        // If it's being moved, add the task to the target category
-        targetCategory.tasks.push({
-          id: editTaskObj.id,
-          title: name,
-        });
-      }
-    } else {
-      console.log("else", oldCategory && oldCategory.category !== category);
-      taskToUpdate.title = name;
-    }
-
-    // Update the state with the new task list
-    setTaskList(newList);
-    setEditOpenForm(false);
-  };
-
   const handleDragStart = (task, category) => {
-    console.log("sartdrag", task, category);
     setDraggableTask({ ...task, fromCategory: category });
   };
 
@@ -106,9 +71,9 @@ function App() {
     setTaskList(updatedList);
   };
 
-  const handleUpdateTask = (name, category) => {
+  const handleUpdateTask = (name) => {
     const updatedList = [...taskList];
-    ///find the orinalcategoryindex
+    ///find the original categoryindex
     const originalcategoryindex = updatedList.findIndex((x) =>
       x.tasks.find((y) => y.id === editTaskObj.id)
     );
@@ -125,6 +90,7 @@ function App() {
 
   const handleEditTask = (item) => {
     setEditOpenForm(true);
+    setCategoryId(null);
     const category = taskList.find((x) =>
       x.tasks.find((y) => y.id === item.id)
     );
@@ -154,15 +120,14 @@ function App() {
               handleDragOver={handleDragOver}
               handleDrop={handleDrop}
             >
-              <div className="card-container">
+              <div className="card-container custom-scroll">
                 {ele?.tasks.map((task) =>
                   openEditForm && task.id === editTaskObj.id ? (
                     <TaskForm
                       key={task.id}
                       addTask={handleAddTask}
                       editTaskObj={editTaskObj}
-                      openForm={openForm}
-                      toggleForm={toggleForm}
+                      categoryId={categoryId}
                       category={ele.category}
                       handleUpdateTask={handleUpdateTask}
                     />
@@ -171,8 +136,6 @@ function App() {
                       key={task.id}
                       category={ele.category}
                       task={task}
-                      openForm={openForm}
-                      toggleForm={toggleForm}
                       handleEditTask={handleEditTask}
                       handleDeleteTask={handleDeleteTask}
                       handleDragStart={handleDragStart}
@@ -183,7 +146,9 @@ function App() {
                 <AddCard
                   addTask={handleAddTask}
                   category={ele.category}
-                  handleUpdateTask={handleUpdateTask}
+                  categoryId={categoryId}
+                  toggleForm={toggleForm}
+                  handleClose={handleClose}
                 />
               </div>
             </TaskSectionBoard>

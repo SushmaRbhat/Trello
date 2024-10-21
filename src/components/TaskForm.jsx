@@ -22,7 +22,7 @@ const TaskForm = ({
   const handleSubmit = (e) => {
     e.preventDefault();
     if (editTaskObj) {
-      handleUpdateTask(taskName, taskCategory);
+      handleUpdateTask(taskName);
     } else {
       addTask(taskName, category);
     }

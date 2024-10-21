@@ -1,6 +1,7 @@
 #root {
   width: 100%;
   margin: 0 auto;
+  height: 100vh;
 }
 * {
   padding: 0;
@@ -144,4 +145,9 @@ h3 {
 }
 .action-container button:hover {
   background-color: rgb(240, 240, 240);
+}
+.custom-scroll::-webkit-scrollbar {
+  border-radius: 50px;
+  width: 10px;
+  background-color: #2523231a;
 }

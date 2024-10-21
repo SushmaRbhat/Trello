@@ -5,7 +5,6 @@ import { MdDelete } from "react-icons/md";
 const TaskCard = ({
   task,
   category,
-  openForm,
   handleEditTask,
   handleDeleteTask,
   handleDragStart,
