@@ -1,0 +1,43 @@
+.card-container {
+  background-color: #f8f8f8;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  grid-gap: 10px;
+  gap: 10px;
+  overflow-y: auto;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+.card {
+  border: 1px solid #ccc;
+  background-color: #fff;
+  color: #424242;
+  padding: 16px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.card-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.action-container {
+  display: inline-flex;
+  gap: 10px;
+  align-items: center;
+}
+.action-container button {
+  border-radius: 100%;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  background-color: transparent;
+  cursor: pointer;
+}
+.action-container button svg {
+  color: rgba(0, 0, 0, 0.54);
+}
+.action-container button:hover {
+  background-color: rgb(240, 240, 240);
+}
