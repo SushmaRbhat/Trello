@@ -1,19 +1,27 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import { BsPersonWorkspace } from "react-icons/bs";
-import { taskData } from "./data";
+import { colors, taskData } from "./data";
+import Header from "./components/Header/Header";
 import TaskSectionBoard from "./components/TaskSectionBoard";
 import TaskCard from "./components/TaskCard/TaskCard";
 import TaskForm from "./components/TaskForm/TaskForm";
+import { Dialog, DialogContent } from "@mui/material";
+import ModalForm from "./components/ModalForm";
+import { MdClose } from "react-icons/md";
 
 function App() {
   const [taskList, setTaskList] = useState(
     JSON.parse(localStorage.getItem("trello-data")) || taskData
   );
-
   const [editTaskObj, setEditTaskObj] = useState(null);
   const [draggableTask, setDraggableTask] = useState(null);
   const [openEditForm, setEditOpenForm] = useState(false);
+  const [open, setOpen] = useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+    setEditTaskObj(null);
+  };
 
   useEffect(() => {
     localStorage.setItem("trello-data", JSON.stringify(taskList));
@@ -95,6 +103,16 @@ function App() {
     setEditOpenForm(false);
   };
   */
+  const handleAddCategory = (category) => {
+    const payload = {
+      id: category,
+      category: category,
+      tasks: [],
+      bgColor: colors[Math.floor(Math.random() * colors.length)],
+    };
+    console.log("cate", category, payload);
+    setTaskList((prev) => [...prev, payload]);
+  };
 
   const handleAddTask = (name, category) => {
     const newList = [...taskList];
@@ -120,7 +138,7 @@ function App() {
 
   const handleDrop = (e, toCategory) => {
     e.preventDefault();
-
+    console.log("from", toCategory);
     if (!draggableTask) return;
     const { id, fromCategory } = draggableTask;
     ///if souce and target category is same return
@@ -176,58 +194,84 @@ function App() {
     handleUpdateTask(payload);
     setEditTaskObj(null);
   };
+
+  const handleSuggestionClick = (value) => {
+    handleEditTask(value);
+    setOpen(true);
+  };
   return (
     <>
-      <div className="header">
-        <BsPersonWorkspace fontSize={30} />
-        <h2>Trello{editTaskObj?.desc}</h2>
-      </div>
-      <div className="task-main-container">
-        {taskList &&
-          taskList?.map((ele, index) => (
-            <TaskSectionBoard
-              key={index}
-              id={ele.id}
-              title={ele.category}
-              handleDragOver={handleDragOver}
-              handleDrop={handleDrop}
-            >
-              <div className="card-container custom-scroll">
-                {ele?.tasks.map((task) =>
-                  openEditForm && task.id === editTaskObj?.id ? (
-                    <TaskForm
-                      key={task.id}
-                      addTask={handleAddTask}
-                      editTaskObj={editTaskObj?.title}
-                      category={ele.category}
-                      onSubmit={updateTitle}
-                      open={openEditForm}
-                    />
-                  ) : (
-                    <TaskCard
-                      key={task.id}
-                      category={ele.category}
-                      task={task}
-                      setEditOpenForm={setEditOpenForm}
-                      setEditTaskObj={setEditTaskObj}
-                      handleEditTask={handleEditTask}
-                      handleDeleteTask={handleDeleteTask}
-                      handleDragStart={handleDragStart}
-                      updateTask={handleUpdateTask}
-                    />
-                  )
-                )}
-                <TaskForm
-                  editTaskObj={editTaskObj?.title}
-                  category={ele.category}
-                  placeholder={"Enter title"}
-                  buttonText={"+ Add Card"}
-                  customClass="add-button"
-                  onSubmit={(value) => handleAddTask(value, ele.category)}
-                />
-              </div>
-            </TaskSectionBoard>
-          ))}
+      <Header
+        taskList={taskList}
+        handleSuggestionClick={handleSuggestionClick}
+      />
+      <div className="app-container">
+        <div className="task-main-container">
+          {taskList &&
+            taskList?.map((ele, index) => (
+              <TaskSectionBoard
+                key={index}
+                id={ele.id}
+                bgColor={ele.bgColor}
+                title={ele.category}
+                handleDragOver={handleDragOver}
+                handleDrop={handleDrop}
+              >
+                <div className="card-container custom-scroll">
+                  {ele?.tasks.map((task) =>
+                    openEditForm && task.id === editTaskObj?.id ? (
+                      <TaskForm
+                        key={task.id}
+                        editTaskObj={editTaskObj?.title}
+                        category={ele.category}
+                        onSubmit={updateTitle}
+                        open={openEditForm}
+                      />
+                    ) : (
+                      <TaskCard
+                        key={task.id}
+                        category={ele.category}
+                        task={task}
+                        setEditOpenForm={setEditOpenForm}
+                        setEditTaskObj={setEditTaskObj}
+                        handleEditTask={handleEditTask}
+                        handleDeleteTask={handleDeleteTask}
+                        handleDragStart={handleDragStart}
+                        updateTask={handleUpdateTask}
+                      />
+                    )
+                  )}
+                  <TaskForm
+                    editTaskObj={editTaskObj?.title}
+                    category={ele.category}
+                    placeholder={"Enter title"}
+                    buttonText={"+ Add Card"}
+                    customClass="add-button"
+                    onSubmit={(value) => handleAddTask(value, ele.category)}
+                  />
+                </div>
+              </TaskSectionBoard>
+            ))}
+          <div className="task-section-board">
+            <TaskForm
+              onSubmit={(value) => handleAddCategory(value)}
+              placeholder={"Enter list name"}
+              buttonText={"+ Add another list"}
+            />
+          </div>
+          <Dialog
+            open={open}
+            onClose={handleClose}
+            aria-labelledby="alert-dialog-title"
+            aria-describedby="alert-dialog-description"
+            fullWidth
+          >
+            <DialogContent>
+              <MdClose className="modal-close-button" onClick={handleClose} />
+              <ModalForm task={editTaskObj} updateTask={handleUpdateTask} />
+            </DialogContent>
+          </Dialog>
+        </div>
       </div>
     </>
   );

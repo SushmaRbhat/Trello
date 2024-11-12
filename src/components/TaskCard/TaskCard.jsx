@@ -5,6 +5,7 @@ import {
   MdDelete,
   MdOutlineSchedule,
   MdFormatAlignLeft,
+  MdClose,
 } from "react-icons/md";
 import { FiCheckSquare } from "react-icons/fi";
 import "./TaskCard.css";
@@ -108,6 +109,7 @@ const TaskCard = ({
         fullWidth
       >
         <DialogContent>
+          <MdClose className="modal-close-button" onClick={handleClose} />
           <ModalForm task={task} updateTask={updateTask} />
         </DialogContent>
       </Dialog>

@@ -2,10 +2,12 @@ export const taskData = [
   {
     id: "todo",
     category: "To Do",
+    bgColor: "#ff9194",
+
     tasks: [
       {
         id: "11",
-        title: "To Do Task 1",
+        title: "Implementation Meeting",
         desc: "Description",
         subTasks: [
           { id: 1731059104025, completed: false, text: "Item1" },
@@ -25,8 +27,8 @@ export const taskData = [
       },
       {
         id: "12",
-        title: "To Do Task 2",
-        desc: "",
+        title: "Architecture Plan",
+        desc: "Description",
         subTasks: [],
         labels: [],
         date: "",
@@ -36,14 +38,15 @@ export const taskData = [
   {
     id: "inprogress",
     category: "In Progress",
+    bgColor: " #73c2fb",
     tasks: [
       {
         id: "21",
-        title: "Progress Task 1",
+        title: "Design Meeting",
         desc: "",
         subTasks: [
           { id: 1731059104025, completed: true, text: "Item1" },
-          { id: 1731059109513, completed: false, text: "Item2" },
+          { id: 1731059109593, completed: false, text: "Item2" },
         ],
         labels: [
           {
@@ -59,7 +62,7 @@ export const taskData = [
       },
       {
         id: "22",
-        title: "Progress Task 2",
+        title: "Complete Training Course-1",
         desc: "",
         subTasks: [],
         labels: [],
@@ -70,10 +73,11 @@ export const taskData = [
   {
     id: "completed",
     category: "Completed",
+    bgColor: "#4dc247",
     tasks: [
       {
         id: "31",
-        title: "Completed Task 1",
+        title: "Product Road Map",
         desc: "Description",
         subTasks: [
           { id: 1731059104025, completed: true, text: "Item1" },

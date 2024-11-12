@@ -5,6 +5,7 @@ const TaskSectionBoard = ({
   title,
   handleDragOver,
   handleDrop,
+  bgColor,
   children,
 }) => {
   return (
@@ -13,7 +14,14 @@ const TaskSectionBoard = ({
       onDragOver={handleDragOver} // Allow dropping by preventing default behavior
       onDrop={(e) => handleDrop(e, title)} // Handle drop
     >
-      <h2 className={`section-header ${id}`}>{title}</h2>
+      <h2
+        className="section-header"
+        style={{
+          backgroundColor: bgColor,
+        }}
+      >
+        {title}
+      </h2>
       {children}
     </div>
   );

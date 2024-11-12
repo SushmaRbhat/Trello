@@ -1,0 +1,63 @@
+.search-box {
+  width: 50%;
+  min-width: 200px;
+  max-width: 350px;
+}
+.input-container {
+  position: relative;
+  width: 100%;
+  font-family: Arial, sans-serif;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background-color: #fff;
+  padding: 0px 15px;
+  border: 1px solid transparent;
+  transition: border-color 0.3s ease;
+}
+.icon {
+  display: flex;
+  color: #212121;
+}
+.input-container input {
+  width: 100%;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 10px;
+  border: none;
+  outline: none;
+  color: #212121;
+}
+.input-container:focus-within {
+  box-shadow: #2196f3 0px 0px 4px 2px;
+}
+
+.suggestions {
+  position: absolute;
+  width: 100%;
+  max-width: inherit;
+  border: none;
+  border-radius: 5px;
+  box-shadow: 0 3px 5px rgba(0, 0, 0, 0.2);
+  background: #fff;
+  z-index: 10;
+  max-height: 250px;
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  margin-top: 10px;
+  list-style: none;
+}
+
+.suggestion-item {
+  padding: 10px;
+  cursor: pointer;
+  color: #212121;
+}
+
+.suggestion-item:hover,
+.suggestion-item[aria-selected="true"] {
+  background-color: #ebebeb;
+}

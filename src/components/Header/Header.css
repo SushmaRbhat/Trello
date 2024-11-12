@@ -1,0 +1,27 @@
+.header {
+  padding: 1rem 1.5rem;
+  box-shadow: 0 1px 20px rgba(56, 40, 40, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+  position: sticky;
+  top: 0;
+  background-color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: #932a17;
+  color: #fff;
+}
+.header h2 {
+  margin-left: 1rem;
+}
+.header .logo-container {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+}
+@media screen and (max-width: 640px) {
+  .header {
+    padding: 1rem 0.5rem;
+  }
+}
